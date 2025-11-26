@@ -93,7 +93,7 @@ To enable IntelliSense and step syncing:
 ],
 "cucumberautocomplete.syncfeatures": "src/features/**/*.feature"
 
-TypeScript / Playwright Lint
+## TypeScript / Playwright Lint
 
 Scripts in package.json:
 "lint": "eslint . --ext .ts",
@@ -110,7 +110,7 @@ npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslin
 
 This ensures ESLint understands TypeScript syntax and your project rules.
 
-Gherkin / Feature File Lint
+## Gherkin / Feature File Lint
 
 Script in package.json:
 "lint:gherkin": "gherkin-lint -c gerkin-lint.json 'src/features/*.feature'"
@@ -182,7 +182,7 @@ playwright-automation-framework/
     └── example.spec.ts
 
 
-# Feature Execution Flow 
+Feature Execution Flow 
 
 
 Feature Files (.feature)
