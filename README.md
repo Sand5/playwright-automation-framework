@@ -40,7 +40,7 @@ Ensure you have a .env file at the root for environment configuration, including
 
 # Running Tests
 
-Using Playwright
+## Using Playwright
 
 Run all tests in headed mode:
 npx playwright test --headed
@@ -49,7 +49,7 @@ Run tests in headless mode:
 npx playwright test
 
 
-Using Cucumber
+## Using Cucumber
 
 Run all feature files:
 UI_AUTOMATION_BROWSER=chromium HEADLESS=false TEST_ENV=qa npm run cucumber
@@ -77,11 +77,11 @@ The cucumber script in package.json contains:
 .env — Contains environment variables, browser settings, and test environments.
 profiles object in the index.ts — Holds tag configurations for running specific scenarios.
 
-Step Definitions & World
+## Step Definitions & World
 CucumberWorld Class: Extends World from Cucumber to share objects and data between steps.
 Step definitions are located in src/step-definitions/
 
-VS Code Cucumber Setup
+## VS Code Cucumber Setup
 
 To enable IntelliSense and step syncing:
 -Press Ctrl + Shift + P (Windows/Linux) or Cmd + Shift + P (Mac).
