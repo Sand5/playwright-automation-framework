@@ -1,8 +1,8 @@
-Playwright Automation Framework
+# Playwright Automation Framework
 
 A robust, maintainable, and scalable UI automation framework built with Playwright, TypeScript, and Cucumber.Designed to simplify end-to-end testing, it supports BDD-style tests, reusable step definitions, and flexible environment configurations.Whether you’re running full regression suites, targeted smoke tests, or individual feature files, this framework provides an easy-to-use structure for consistent and reliable test automation.
 
-Installation
+# Installation
 
 Install required dependencies:
 
@@ -137,64 +137,64 @@ The configuration aligns with Cucumber Full Support formatting:
 
 Folder Hierarchy
 playwright-automation-framework/
+├── README.md                     # Project documentation
+├── env                           # Environment configurations
+├── eslint.config.cjs             # ESLint configuration
+├── package-lock.json             # NPM lock file
+├── package.json                  # NPM scripts & dependencies
+├── playwright.config.ts          # Playwright configuration
+├── reports/                      # Test reports
+├── test-results/                 # Raw test result files
+├── tsconfig.json                 # TypeScript configuration
 │
-├── README.md                        # Project documentation
-├── env                              # Environment configurations
-├── eslint.config.cjs                # ESLint configuration
-├── package-lock.json                 # NPM lock file
-├── package.json                      # NPM scripts & dependencies
-├── playwright.config.ts              # Playwright configuration
-├── reports/                          # Test reports
-├── test-results/                     # Raw test result files
-├── tsconfig.json                     # TypeScript configuration
-│
-├── src/                              # Source code
-│   ├── features/                     # Cucumber feature files
+├── src/                          # Source code
+│   ├── features/                 # Cucumber feature files
 │   │   ├── contact-us.feature
 │   │   └── login.feature
 │   │
-│   ├── step-definitions/             # Step definitions
+│   ├── step-definitions/         # Step definitions
 │   │   ├── base.steps.ts
 │   │   ├── contact-us.steps.ts
 │   │   ├── home.steps.ts
 │   │   ├── login.steps.ts
-│   │   ├── hooks/                    # Hook scripts (before/after scenarios)
-│   │   └── world/                    # Cucumber World extensions
+│   │   ├── hooks/                # Hook scripts (before/after scenarios)
+│   │   └── world/                # Cucumber World extensions
 │   │
-│   ├── page-objects/                 # Page Object Model files
-│   │   ├── base/                     # Base page classes
+│   ├── page-objects/             # Page Object Model files
+│   │   ├── base/                 # Base page classes
 │   │   ├── contact-us.page.ts
 │   │   ├── home.page.ts
 │   │   └── login.page.ts
 │   │
-│   ├── utils/                        # Utility scripts
+│   ├── utils/                    # Utility scripts
 │   │   ├── cucumber-timeout.ts
 │   │   ├── playwright-timeouts.ts
 │   │   └── take-screenshot.ts
 │   │
-│   ├── logger/                       # Logging utilities
+│   ├── logger/                   # Logging utilities
 │   │   └── logger.ts
 │   │
-│   └── index.ts                      # Entry point or custom runner
+│   └── index.ts                  # Entry point or custom runner
 │
-└── tests/                            # Standalone test files
+└── tests/                        # Standalone test files
     └── example.spec.ts
 
 Feature Execution Flow:
 
-Feature Files (*.feature)
-         │
-         ▼
-  Step Definitions (*.ts)
-         │
-         ▼
-    Cucumber World
-         │
-         ▼
+Feature Files (.feature)
+       │
+       ▼
+Step Definitions (.ts)
+       │
+       ▼
+Cucumber World
+       │
+       ▼
 Utilities & Helpers
-         │
-         ▼
- Playwright Browser Actions
+       │
+       ▼
+Playwright Browser Actions
+
 
 This shows how features are executed step-by-step through the framework.
 
