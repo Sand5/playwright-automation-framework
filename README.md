@@ -93,6 +93,46 @@ To enable IntelliSense and step syncing:
 ],
 "cucumberautocomplete.syncfeatures": "src/features/**/*.feature"
 
+TypeScript / Playwright Lint
+
+Scripts in package.json:
+"lint": "eslint . --ext .ts",
+"lint:fix": "eslint . --ext .ts --fix"
+
+lint: Checks all .ts files for linting errors.
+lint:fix: Automatically fixes linting issues where possible.
+
+Required files / configuration:
+eslint.config.cjs — your ESLint configuration file
+
+Make sure ESLint is installed locally:
+npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+
+This ensures ESLint understands TypeScript syntax and your project rules.
+
+Gherkin / Feature File Lint
+
+Script in package.json:
+"lint:gherkin": "gherkin-lint -c gerkin-lint.json 'src/features/*.feature'"
+
+lint:gherkin: Runs Gherkin linting on all feature files in src/features/
+Uses the configuration file gerkin-lint.json
+Based on the Cucumber Full Support VS Code plugin, ensuring your .feature files follow the same indentation, step formatting, and other conventions.
+
+Required files / configuration:
+.gherkin-lintrc (or your custom gerkin-lint.json)
+
+Install Gherkin Lint globally or locally:
+npm install --save-dev gherkin-lint
+
+The configuration aligns with Cucumber Full Support formatting:
+
+-Steps (Given, When, Then, And) indentation
+-Examples / tables indentation
+-File naming (kebab-case or PascalCase)
+-Scenario and step length rules
+-EOF newlines and no trailing spaces
+
 Project Structure
 
 Folder Hierarchy
