@@ -1,0 +1,26 @@
+{
+  "name": "playwright-automation-framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cucumberWithTS": "cucumber-js src/features/*.feature --require-module ts-node/register --require src/step-definitions/**/**/*.ts --require src/utils/cucumber-timeout.ts",
+    "precucumber": "rimraf reports && mkdir reports",
+    "cucumber": "ts-node ./src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@colors/colors": "^1.6.0",
+    "@cucumber/cucumber": "^12.2.0",
+    "@faker-js/faker": "^10.0.0",
+    "@playwright/test": "^1.55.1",
+    "@types/node": "^24.6.0",
+    "dotenv": "^17.2.3",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "winston": "^3.18.3"
+  }
+}
