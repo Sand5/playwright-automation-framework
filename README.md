@@ -1,28 +1,149 @@
-To install playwright use npm init playwright@latest
-To install ts node to compile ts files to js  npm install --save-dev ts node
-To run npx playwright test --headed or npx playwright test 
-To install cucumber  npm install --save-dev @cucumber/cucumber
-To install ts node in order for your ts files to compile and run npm install --save-dev ts-node
-To Install rimfaf -- npm install --save-dev rimraf allows for cleanup operations in hooks for the reports folder
-To install faker npm install --save-dev @faker-js/faker
-To install a dotenv to load environment varibales 
-To install winston for logging npm install --save-dev winston
-To install colors for logging npm install --save-dev @colors/colors
-We have the .env file which is configurations for browser etc
-Ww have the cucumberworld class which extends the world from the cucumber package to allow us to share objects and data between steps
-To run the the feature file using the following command:npx cucumber-js src/features/*.feature --require-module ts-node/register --require "src/step-definitions/**/**/*.ts --require src/utils/cucumber-timeout.ts"
-To run the feature file using scripts run the following custom script: UI_AUTOMATION_BROWSER=chromium HEADLESS=false TEST_ENV=qa  npm run cucumber login
-To run custom tags via the index.ts file use  ts -node ./src/index.ts smoke it looks for the tags which are part of the profiles object.
-Use the script cucumber in the package .json file and run npm run cucumber regression (script contains "npx cucumber-js && ts-node ./src/index.ts")
-7.Press Ctrl + Shift + P (Windows/Linux) or Cmd + Shift + P (Mac) to open the Command Palette.
-Type:
-Preferences: Open Settings (JSON)
+Playwright Automation Framework
 
-Ensure the following steps are present 
-  "cucumberautocomplete.steps": [
-    "src/step-definitions/*.ts"
-  ],
+A robust, maintainable, and scalable UI automation framework built with Playwright, TypeScript, and Cucumber.Designed to simplify end-to-end testing, it supports BDD-style tests, reusable step definitions, and flexible environment configurations.Whether you’re running full regression suites, targeted smoke tests, or individual feature files, this framework provides an easy-to-use structure for consistent and reliable test automation.
 
-// ✅ Include all feature files for syncing
-"cucumberautocomplete.syncfeatures": "src/features/**/*.feature",
-The above helps with locating the step defs 
+Installation
+
+Install required dependencies:
+
+# Initialize Playwright
+npm init playwright@latest
+
+# Compile TypeScript files
+npm install --save-dev ts-node
+
+# Install Cucumber
+npm install --save-dev @cucumber/cucumber
+
+# Cleanup tool for reports folder
+npm install --save-dev rimraf
+
+# Fake data generation
+npm install --save-dev @faker-js/faker
+
+# Environment variable loader
+npm install dotenv
+
+# Logging
+npm install --save-dev winston
+npm install --save-dev @colors/colors
+
+
+Project Setup
+
+Clone the repository
+
+git clone https://github.com/Sand5/playwright-automation-framework
+cd playwright-automation-framework
+
+Ensure you have a .env file at the root for environment configuration, including browser preferences, test environments, etc.
+
+Running Tests
+
+Using Playwright
+
+Run all tests in headed mode:
+npx playwright test --headed
+
+Run tests in headless mode:
+npx playwright test
+
+
+Using Cucumber
+
+Run all feature files:
+UI_AUTOMATION_BROWSER=chromium HEADLESS=false TEST_ENV=qa npm run cucumber
+OR
+npx cucumber-js src/features/*.feature \
+  --require-module ts-node/register \
+  --require "src/step-definitions/**/**/*.ts" \
+  --require src/utils/cucumber-timeout.ts
+
+Run a specific feature using a custom script with a tag:
+UI_AUTOMATION_BROWSER=chromium HEADLESS=false TEST_ENV=qa npm run cucumber login
+
+Run tests for specific tags via index.ts:
+ts-node ./src/index.ts smoke
+This executes all scenarios marked with the @smoke tag.
+
+Run the regression suite using npm script:
+npm run cucumber regression
+
+The cucumber script in package.json contains:
+"npx cucumber-js ts-node ./src/index.ts"
+
+Configuration
+
+.env — Contains environment variables, browser settings, and test environments.
+profiles object in the index.ts — Holds tag configurations for running specific scenarios.
+
+Step Definitions & World
+CucumberWorld Class: Extends World from Cucumber to share objects and data between steps.
+Step definitions are located in src/step-definitions/
+
+VS Code Cucumber Setup
+
+To enable IntelliSense and step syncing:
+-Press Ctrl + Shift + P (Windows/Linux) or Cmd + Shift + P (Mac).
+-Open Preferences: Open Settings (JSON).
+-Ensure the following entries exist:
+
+"cucumberautocomplete.steps": [
+  "src/step-definitions/*.ts"
+],
+"cucumberautocomplete.syncfeatures": "src/features/**/*.feature"
+
+Project Structure
+
+Folder Hierarchy
+playwright-automation-framework/
+│
+├── src/
+│   ├── features/                  # Cucumber feature files
+│   │   └── *.feature
+│   │
+│   ├── step-definitions/          # Step definition files
+│   │   └── **/*.ts
+│   │
+│   ├── utils/                     # Utility scripts
+│   │   ├── cucumber-timeout.ts
+│   │   └── other-utils.ts
+│   │
+│   ├── world/                     # Cucumber World extension
+│   │   └── cucumberWorld.ts
+│   │
+│   └── index.ts                   # Custom script for running tags/profiles
+│
+├── .env                            # Environment configurations
+├── package.json                    # NPM scripts & dependencies
+├── tsconfig.json                   # TypeScript configuration
+└── README.md                       # Project documentation
+
+
+Feature Execution Flow:
+
+Feature Files (*.feature)
+         │
+         ▼
+  Step Definitions (*.ts)
+         │
+         ▼
+    Cucumber World
+         │
+         ▼
+Utilities & Helpers
+         │
+         ▼
+ Playwright Browser Actions
+
+This shows how features are executed step-by-step through the framework.
+
+Dependencies
+
+Playwright: Browser automation
+Cucumber: BDD framework
+ts-node: TypeScript runtime
+rimraf: Cleanup utility
+faker: Fake data generation
+dotenv: Environment variable loader
+winston & colors: Logging

@@ -107,7 +107,6 @@ Before(async function ({ pickle }) {
 });
 
 // Runs after each scenario
-// Runs after each scenario
 After(async function ({ pickle, result }) {
   console.log(
     `\n[After Hook] Scenario: "${pickle.name}" finished with status: ${result?.status}`
