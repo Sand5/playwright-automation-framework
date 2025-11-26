@@ -184,7 +184,7 @@ playwright-automation-framework/
 
 # Feature Execution Flow 
 
-```text
+
 Feature Files (.feature)
        │
        ▼
