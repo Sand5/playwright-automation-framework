@@ -133,11 +133,11 @@ The configuration aligns with Cucumber Full Support formatting:
 -Scenario and step length rules
 -EOF newlines and no trailing spaces
 
- Project Structure
+
 
 # Project Structure: playwright-automation-framework
 
-
+```text
 playwright-automation-framework/
 ├── README.md                     # Project documentation
 ├── env                           # Environment configurations
@@ -171,10 +171,20 @@ playwright-automation-framework/
 │   ├── utils/                    # Utility scripts
 │   │   ├── cucumber-timeout.ts
 │   │   ├── playwright-timeouts.ts
+│   │   └── take-screenshot.ts
+│   │
+│   ├── logger/                   # Logging utilities
+│   │   └── logger.ts
+│   │
+│   └── index.ts                  # Entry point or custom runner
+│
+└── tests/                        # Standalone test files
+    └── example.spec.ts
 
 
 
-### Feature Execution Flow (Markdown-ready)
+
+### Feature Execution Flow 
 
 ```text
 Feature Files (.feature)
