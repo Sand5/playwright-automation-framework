@@ -6,30 +6,30 @@ A robust, maintainable, and scalable UI automation framework built with Playwrig
 
 Install required dependencies:
 
-# Initialize Playwright
+## Initialize Playwright
 npm init playwright@latest
-
-# Compile TypeScript files
+ß
+## Compile TypeScript files
 npm install --save-dev ts-node
 
-# Install Cucumber
+## Install Cucumber
 npm install --save-dev @cucumber/cucumber
 
-# Cleanup tool for reports folder
+## Cleanup tool for reports folder
 npm install --save-dev rimraf
 
-# Fake data generation
+## Fake data generation
 npm install --save-dev @faker-js/faker
 
-# Environment variable loader
+## Environment variable loader
 npm install dotenv
 
-# Logging
+## Logging
 npm install --save-dev winston
 npm install --save-dev @colors/colors
 
 
-# Project Setup
+#ß Project Setup
 
 Clone the repository
 
