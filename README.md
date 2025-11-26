@@ -29,7 +29,7 @@ npm install --save-dev winston
 npm install --save-dev @colors/colors
 
 
-Project Setup
+# Project Setup
 
 Clone the repository
 
@@ -38,7 +38,7 @@ cd playwright-automation-framework
 
 Ensure you have a .env file at the root for environment configuration, including browser preferences, test environments, etc.
 
-Running Tests
+# Running Tests
 
 Using Playwright
 
@@ -72,7 +72,7 @@ npm run cucumber regression
 The cucumber script in package.json contains:
 "npx cucumber-js ts-node ./src/index.ts"
 
-Configuration
+# Configuration
 
 .env — Contains environment variables, browser settings, and test environments.
 profiles object in the index.ts — Holds tag configurations for running specific scenarios.
@@ -133,32 +133,52 @@ The configuration aligns with Cucumber Full Support formatting:
 -Scenario and step length rules
 -EOF newlines and no trailing spaces
 
-Project Structure
+# Project Structure
 
 Folder Hierarchy
 playwright-automation-framework/
 │
-├── src/
-│   ├── features/                  # Cucumber feature files
-│   │   └── *.feature
-│   │
-│   ├── step-definitions/          # Step definition files
-│   │   └── **/*.ts
-│   │
-│   ├── utils/                     # Utility scripts
-│   │   ├── cucumber-timeout.ts
-│   │   └── other-utils.ts
-│   │
-│   ├── world/                     # Cucumber World extension
-│   │   └── cucumberWorld.ts
-│   │
-│   └── index.ts                   # Custom script for running tags/profiles
+├── README.md                        # Project documentation
+├── env                              # Environment configurations
+├── eslint.config.cjs                # ESLint configuration
+├── package-lock.json                 # NPM lock file
+├── package.json                      # NPM scripts & dependencies
+├── playwright.config.ts              # Playwright configuration
+├── reports/                          # Test reports
+├── test-results/                     # Raw test result files
+├── tsconfig.json                     # TypeScript configuration
 │
-├── .env                            # Environment configurations
-├── package.json                    # NPM scripts & dependencies
-├── tsconfig.json                   # TypeScript configuration
-└── README.md                       # Project documentation
-
+├── src/                              # Source code
+│   ├── features/                     # Cucumber feature files
+│   │   ├── contact-us.feature
+│   │   └── login.feature
+│   │
+│   ├── step-definitions/             # Step definitions
+│   │   ├── base.steps.ts
+│   │   ├── contact-us.steps.ts
+│   │   ├── home.steps.ts
+│   │   ├── login.steps.ts
+│   │   ├── hooks/                    # Hook scripts (before/after scenarios)
+│   │   └── world/                    # Cucumber World extensions
+│   │
+│   ├── page-objects/                 # Page Object Model files
+│   │   ├── base/                     # Base page classes
+│   │   ├── contact-us.page.ts
+│   │   ├── home.page.ts
+│   │   └── login.page.ts
+│   │
+│   ├── utils/                        # Utility scripts
+│   │   ├── cucumber-timeout.ts
+│   │   ├── playwright-timeouts.ts
+│   │   └── take-screenshot.ts
+│   │
+│   ├── logger/                       # Logging utilities
+│   │   └── logger.ts
+│   │
+│   └── index.ts                      # Entry point or custom runner
+│
+└── tests/                            # Standalone test files
+    └── example.spec.ts
 
 Feature Execution Flow:
 
