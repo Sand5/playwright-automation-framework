@@ -182,9 +182,7 @@ playwright-automation-framework/
     └── example.spec.ts
 
 
-
-
-### Feature Execution Flow 
+# Feature Execution Flow 
 
 ```text
 Feature Files (.feature)
