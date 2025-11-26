@@ -137,50 +137,54 @@ The configuration aligns with Cucumber Full Support formatting:
 
 Folder Hierarchy
 playwright-automation-framework/
-├── README.md                     # Project documentation
-├── env                           # Environment configurations
-├── eslint.config.cjs             # ESLint configuration
-├── package-lock.json             # NPM lock file
-├── package.json                  # NPM scripts & dependencies
-├── playwright.config.ts          # Playwright configuration
-├── reports/                      # Test reports
-├── test-results/                 # Raw test result files
-├── tsconfig.json                 # TypeScript configuration
+├── README.md # Project documentation
+├── env # Environment configurations
+├── eslint.config.cjs # ESLint configuration
+├── package-lock.json # NPM lock file
+├── package.json # NPM scripts & dependencies
+├── playwright.config.ts # Playwright configuration
+├── reports/ # Test reports
+├── test-results/ # Raw test result files
+├── tsconfig.json # TypeScript configuration
 │
-├── src/                          # Source code
-│   ├── features/                 # Cucumber feature files
-│   │   ├── contact-us.feature
-│   │   └── login.feature
-│   │
-│   ├── step-definitions/         # Step definitions
-│   │   ├── base.steps.ts
-│   │   ├── contact-us.steps.ts
-│   │   ├── home.steps.ts
-│   │   ├── login.steps.ts
-│   │   ├── hooks/                # Hook scripts (before/after scenarios)
-│   │   └── world/                # Cucumber World extensions
-│   │
-│   ├── page-objects/             # Page Object Model files
-│   │   ├── base/                 # Base page classes
-│   │   ├── contact-us.page.ts
-│   │   ├── home.page.ts
-│   │   └── login.page.ts
-│   │
-│   ├── utils/                    # Utility scripts
-│   │   ├── cucumber-timeout.ts
-│   │   ├── playwright-timeouts.ts
-│   │   └── take-screenshot.ts
-│   │
-│   ├── logger/                   # Logging utilities
-│   │   └── logger.ts
-│   │
-│   └── index.ts                  # Entry point or custom runner
+├── src/ # Source code
+│ ├── features/ # Cucumber feature files
+│ │ ├── contact-us.feature
+│ │ └── login.feature
+│ │
+│ ├── step-definitions/ # Step definitions
+│ │ ├── base.steps.ts
+│ │ ├── contact-us.steps.ts
+│ │ ├── home.steps.ts
+│ │ ├── login.steps.ts
+│ │ ├── hooks/ # Hook scripts (before/after scenarios)
+│ │ └── world/ # Cucumber World extensions
+│ │
+│ ├── page-objects/ # Page Object Model files
+│ │ ├── base/ # Base page classes
+│ │ ├── contact-us.page.ts
+│ │ ├── home.page.ts
+│ │ └── login.page.ts
+│ │
+│ ├── utils/ # Utility scripts
+│ │ ├── cucumber-timeout.ts
+│ │ ├── playwright-timeouts.ts
+│ │ └── take-screenshot.ts
+│ │
+│ ├── logger/ # Logging utilities
+│ │ └── logger.ts
+│ │
+│ └── index.ts # Entry point or custom runner
 │
-└── tests/                        # Standalone test files
-    └── example.spec.ts
+└── tests/ # Standalone test files
+└── example.spec.ts
 
-Feature Execution Flow:
 
+---
+
+### Feature Execution Flow (Markdown-ready)
+
+```text
 Feature Files (.feature)
        │
        ▼
