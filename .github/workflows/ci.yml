@@ -43,21 +43,21 @@ jobs:
 
     - name: Upload HTML Report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: cucumber-html-report
         path: reports/cucumber_report.html
 
     - name: Upload JSON Report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: cucumber-json-report
         path: reports/cucumber_report.json
 
     - name: Upload Screenshots
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: screenshots
         path: reports/screenshots/
