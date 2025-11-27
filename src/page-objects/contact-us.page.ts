@@ -3,7 +3,6 @@ import { expect } from "@playwright/test";
 import logger from "../logger/logger";
 import { PageManager } from "./base/page-manager";
 
-
 export class ContactUsPage extends BasePage {
   constructor(protected pageManager: PageManager) {
     super(pageManager);
@@ -11,9 +10,8 @@ export class ContactUsPage extends BasePage {
   // Methods and properties for Contact Us Page can be added here
 
   public async fillFirstName(firstName: string): Promise<void> {
-    await this.page.locator('input[name="first_name"]')
-      .fill(firstName);
-      logger.info(`Filled in first name: ${firstName}`);
+    await this.page.locator('input[name="first_name"]').fill(firstName);
+    logger.info(`Filled in first name: ${firstName}`);
   }
 
   public async fillLastName(lastName: string): Promise<void> {
@@ -25,19 +23,19 @@ export class ContactUsPage extends BasePage {
     await this.page
       .getByRole("textbox", { name: "Email Address" })
       .fill(emailAddress);
-      logger.info(`Filled in email address: ${emailAddress}`);
+    logger.info(`Filled in email address: ${emailAddress}`);
   }
 
   public async fillComments(comments: string, number?: number): Promise<void> {
     await this.page
       .getByRole("textbox", { name: "Comments" })
       .fill(`${comments} ${number}`);
-      logger.info(`Filled in comments: ${comments} ${number}`);
+    logger.info(`Filled in comments: ${comments} ${number}`);
   }
 
   public async clickOnSubmitButton(): Promise<void> {
     await this.page.getByRole("button", { name: "SUBMIT" }).click();
-      logger.info("Clicked on the submit button");
+    logger.info("Clicked on the submit button");
   }
 
   public async getSuccessfulMessage(): Promise<string> {
@@ -51,62 +49,57 @@ export class ContactUsPage extends BasePage {
     logger.info(
       `Successful contact us submission message displayed: ${successMessage}`
     );
-      return successMessage;
+    return successMessage;
   }
 
   public async getErrorMessage(): Promise<string> {
-      //Waits for the success message element to be visible on the page
-       await this.page.waitForSelector("body");
-   
-       // Retrieves the text content of the success message element
-       const body = this.page.locator("body");
-   
-       // Extract the text content from the body element
-       const unsuccessfulMessage = await body.textContent();
+    //Waits for the success message element to be visible on the page
+    await this.page.waitForSelector("body");
 
-      // Return the body text, or an empty string if textContent() returns null
-       logger.info(
+    // Retrieves the text content of the success message element
+    const body = this.page.locator("body");
+
+    // Extract the text content from the body element
+    const unsuccessfulMessage = await body.textContent();
+
+    // Return the body text, or an empty string if textContent() returns null
+    logger.info(
       `Expected unsuccessful contact us submission message displayed: ${unsuccessfulMessage}`
     );
-      return unsuccessfulMessage ??  '';
-
-      
+    return unsuccessfulMessage ?? "";
   }
 
-public async getHeaderText(expectedText: string): Promise<void> {
-  // Normalize expected text into separate lines
-  const expectedLines = expectedText
-    .replace(/\\n/g, "\n")
-    .split("\n")
-    .map(x => x.trim())
-    .filter(Boolean);
+  public async getHeaderText(expectedText: string): Promise<void> {
+    // Normalize expected text into separate lines
+    const expectedLines = expectedText
+      .replace(/\\n/g, "\n")
+      .split("\n")
+      .map((x) => x.trim())
+      .filter(Boolean);
 
-  // Pull raw textContent from the DOM (includes ALL errors)
-  const locator = this.page.locator(
-    "xpath=//div[@id='contact_reply']/h1 | //body"
-  ).first();
+    // Pull raw textContent from the DOM (includes ALL errors)
+    const locator = this.page
+      .locator("xpath=//div[@id='contact_reply']/h1 | //body")
+      .first();
 
-  const rawText = (await locator.textContent()) || "";
+    const rawText = (await locator.textContent()) || "";
 
-  // Convert <br> to newline and normalize whitespace
-  const actualLines = rawText
-    .replace(/<br\s*\/?>/gi, "\n")   // turn <br> into newline
-    .replace(/\r?\n/g, "\n")        // normalize line endings
-    .split("\n")
-    .map(x => x.trim())
-    .filter(Boolean);
+    // Convert <br> to newline and normalize whitespace
+    const actualLines = rawText
+      .replace(/<br\s*\/?>/gi, "\n") // turn <br> into newline
+      .replace(/\r?\n/g, "\n") // normalize line endings
+      .split("\n")
+      .map((x) => x.trim())
+      .filter(Boolean);
 
-  console.log("=== EXPECTED LINES ===");
-  console.log(expectedLines);
-  console.log("=== ACTUAL RAW LINES ===");
-  console.log(actualLines);
+    logger.info("=== EXPECTED LINES ===");
+    logger.info(expectedLines);
+    logger.info("=== ACTUAL RAW LINES ===");
+    logger.info(actualLines);
 
-  // Validate raw HTML lines contain all expected messages
-  for (const line of expectedLines) {
-    expect(actualLines.includes(line)).toBe(true);
+    // Validate raw HTML lines contain all expected messages
+    for (const line of expectedLines) {
+      expect(actualLines.includes(line)).toBe(true);
+    }
   }
-}
-
-
-
 }

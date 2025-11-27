@@ -7,24 +7,27 @@ import logger from "../logger/logger";
 When("I type a first name", async function (this: CucumberWorld) {
   logger.info(`Base URL stored in Cucumber World: ${this.url}`);
   await this.contactUsPage.fillFirstName("John");
-
 });
 
 When("I type a last name", async function (this: CucumberWorld) {
-  await this.contactUsPage.fillLastName("Smith");
+  var lastName: string = process.env.DEFAULT_LAST_NAME || "Smith";
+  await this.contactUsPage.fillLastName(lastName);
 });
 
 When("I enter an email address", async function (this: CucumberWorld) {
-  await this.contactUsPage.fillEmailAddress("johnsmith99@gmail.com");
+  var emailAddress: string =
+    process.env.DEFAULT_EMAIL || "johnsmith99@gmail.com ";
+  await this.contactUsPage.fillEmailAddress(emailAddress);
 });
 
 When("I type a comment", async function (this: CucumberWorld) {
-  await this.contactUsPage.fillComments("This is a test comment");
+  var comment: string =
+    process.env.DEFAULT_COMMENT || "This is a default comment.";
+  await this.contactUsPage.fillComments(comment);
 });
 
 When("I click on the submit button", async function (this: CucumberWorld) {
   await this.contactUsPage.clickOnSubmitButton();
-
 });
 
 Then(
@@ -72,7 +75,6 @@ When(
   "I type specific comment {string} and a number {int} within the comment iput field",
   async function (this: CucumberWorld, comment: string, number: number) {
     await this.contactUsPage.fillComments(comment, number);
-  
   }
 );
 
@@ -104,11 +106,10 @@ When(
 );
 
 When(
-  "I tyoe a email address {string} and a comment {string}",
+  "I type a email address {string} and a comment {string}",
   async function (this: CucumberWorld, emailAddress: string, comment: string) {
     await this.contactUsPage.fillEmailAddress(emailAddress);
     await this.contactUsPage.fillComments(comment);
-  
   }
 );
 

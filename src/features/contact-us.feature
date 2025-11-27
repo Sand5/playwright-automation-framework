@@ -39,7 +39,7 @@ Feature: WebdriverUniversity.com - Contact Us Page
 
     Scenario Outline: Validate Contact Us Page
         And I type a first name "<firstName>" and a last name "<lastName>"
-        And I tyoe a email address "<emailAddress>" and a comment "<comment>"
+        And I type a email address "<emailAddress>" and a comment "<comment>"
         And I click on the submit button
         Then I should be presented with header text "<message>"
 
