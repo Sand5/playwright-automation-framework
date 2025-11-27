@@ -1,5 +1,6 @@
 name: Playwright + Cucumber E2E Tests
 
+# ▶️ Trigger CI on push and pull requests to main
 on:
   push:
     branches:
@@ -11,53 +12,90 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    # -----------------------
+    # Matrix configuration
+    # -----------------------
     strategy:
       matrix:
-        node-version: [20.x]
+        browser: [chromium, firefox, webkit]   # Run tests in all major browsers
 
     steps:
+    # -----------------------
+    # 1. Checkout repository
+    # -----------------------
     - name: Checkout code
       uses: actions/checkout@v4
 
+    # -----------------------
+    # 2. Setup Node.js
+    #    - Cache enabled for faster CI
+    # -----------------------
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 20.x
+        cache: 'npm'
 
+    # -----------------------
+    # 3. Install dependencies
+    #    - Using npm ci for reproducibility
+    # -----------------------
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
+    # -----------------------
+    # 4. Install Playwright browsers & OS dependencies
+    # -----------------------
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
+    # -----------------------
+    # 5. Run linter
+    # -----------------------
     - name: Run Linter
       run: npm run lint
 
+    # -----------------------
+    # 6. Run Cucumber tests for Contact Us
+    #    - Inject browser matrix value
+    #    - HEADLESS + TEST_ENV flags
+    #    - continue-on-error ensures artifact upload even on failures
+    # -----------------------
     - name: Run Contact Us Tests
       env:
-        UI_AUTOMATION_BROWSER: chromium
+        UI_AUTOMATION_BROWSER: ${{ matrix.browser }}
         HEADLESS: true
         TEST_ENV: qa
       run: npm run cucumber contactUs
       continue-on-error: true
 
+    # -----------------------
+    # 7. Upload HTML Report
+    # -----------------------
     - name: Upload HTML Report
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: cucumber-html-report
+        name: cucumber-html-report-${{ matrix.browser }}
         path: reports/cucumber_report.html
 
+    # -----------------------
+    # 8. Upload JSON Report
+    # -----------------------
     - name: Upload JSON Report
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: cucumber-json-report
+        name: cucumber-json-report-${{ matrix.browser }}
         path: reports/cucumber_report.json
 
+    # -----------------------
+    # 9. Upload Screenshots
+    # -----------------------
     - name: Upload Screenshots
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: screenshots
+        name: screenshots-${{ matrix.browser }}
         path: reports/screenshots/
