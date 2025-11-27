@@ -17,10 +17,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -36,10 +36,10 @@ jobs:
     - name: Run Contact Us Tests
       env:
         UI_AUTOMATION_BROWSER: chromium
-        HEADLESS: true        # Use true in CI
+        HEADLESS: true
         TEST_ENV: qa
       run: npm run cucumber contactUs
-      continue-on-error: true  # ensures reports and screenshots get uploaded even if tests fail
+      continue-on-error: true
 
     - name: Upload HTML Report
       if: always()
