@@ -1,0 +1,63 @@
+name: Playwright + Cucumber E2E Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run Linter
+      run: npm run lint
+
+    - name: Run Contact Us Tests
+      env:
+        UI_AUTOMATION_BROWSER: chromium
+        HEADLESS: true        # Use true in CI
+        TEST_ENV: qa
+      run: npm run cucumber contactUs
+      continue-on-error: true  # ensures reports and screenshots get uploaded even if tests fail
+
+    - name: Upload HTML Report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: cucumber-html-report
+        path: reports/cucumber_report.html
+
+    - name: Upload JSON Report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: cucumber-json-report
+        path: reports/cucumber_report.json
+
+    - name: Upload Screenshots
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: screenshots
+        path: reports/screenshots/
