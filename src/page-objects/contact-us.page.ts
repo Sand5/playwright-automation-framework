@@ -27,10 +27,12 @@ export class ContactUsPage extends BasePage {
   }
 
   public async fillComments(comments: string, number?: number): Promise<void> {
+    const fullComments =
+      number !== undefined ? `${comments} ${number}` : comments;
     await this.page
       .getByRole("textbox", { name: "Comments" })
-      .fill(`${comments} ${number}`);
-    logger.info(`Filled in comments: ${comments} ${number}`);
+      .fill(fullComments);
+    logger.info(`Filled in comments: ${fullComments}`);
   }
 
   public async clickOnSubmitButton(): Promise<void> {
@@ -92,14 +94,10 @@ export class ContactUsPage extends BasePage {
       .map((x) => x.trim())
       .filter(Boolean);
 
-    logger.info("=== EXPECTED LINES ===");
-    logger.info(expectedLines);
-    logger.info("=== ACTUAL RAW LINES ===");
-    logger.info(actualLines);
+    logger.info("=== EXPECTED LINES ===\n" + expectedLines.join("\n"));
+    logger.info("=== ACTUAL RAW LINES ===\n" + actualLines.join("\n"));
 
-    // Validate raw HTML lines contain all expected messages
-    for (const line of expectedLines) {
-      expect(actualLines.includes(line)).toBe(true);
-    }
+    // Validate all expected lines exist in actual lines
+    expect(actualLines).toEqual(expect.arrayContaining(expectedLines));
   }
 }

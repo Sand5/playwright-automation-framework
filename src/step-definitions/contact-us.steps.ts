@@ -1,27 +1,35 @@
 import { When, Then } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import { faker } from "@faker-js/faker";
 import { CucumberWorld } from "./world/cucumber.world";
-import logger from "../logger/logger";
+import { resolveFirstName,resolveLastName,resolveEmail} from "../utils/data.resolver";
 
-When("I type a first name", async function (this: CucumberWorld) {
-  logger.info(`Base URL stored in Cucumber World: ${this.url}`);
-  await this.contactUsPage.fillFirstName("John");
-});
 
-When("I type a last name", async function (this: CucumberWorld) {
-  var lastName: string = process.env.DEFAULT_LAST_NAME || "Smith";
-  await this.contactUsPage.fillLastName(lastName);
-});
+When(
+  /^I type a (random|specific|default) first name(?: "([^"]*)")?$/,
+  async function (this: CucumberWorld, mode: string, value?: string) {
+    const firstName = resolveFirstName(mode, value);
+    await this.contactUsPage.fillFirstName(firstName);
+  }
+);
 
-When("I enter an email address", async function (this: CucumberWorld) {
-  var emailAddress: string =
-    process.env.DEFAULT_EMAIL || "johnsmith99@gmail.com ";
-  await this.contactUsPage.fillEmailAddress(emailAddress);
-});
+When(
+  /^I type a (random|specific|default) last name(?: "([^"]*)")?$/,
+  async function (this: CucumberWorld, mode: string, value?: string) {
+    const lastName = resolveLastName(mode, value);
+    await this.contactUsPage.fillLastName(lastName);
+  }
+);
+
+When(
+  /^I type a (random|specific|default) email address(?: "([^"]*)")?$/,
+  async function (this: CucumberWorld, mode: string, value?: string) {
+    const email = resolveEmail(mode, value);
+    await this.contactUsPage.fillEmailAddress(email);
+  }
+);
 
 When("I type a comment", async function (this: CucumberWorld) {
-  var comment: string =
+  const comment: string =
     process.env.DEFAULT_COMMENT || "This is a default comment.";
   await this.contactUsPage.fillComments(comment);
 });
@@ -33,8 +41,9 @@ When("I click on the submit button", async function (this: CucumberWorld) {
 Then(
   "I should be presented with a successful contact us submission message",
   async function (this: CucumberWorld) {
+    const expectedMessage: string = process.env.DEFAULT_SUCCESS_MESSAGE || "Thank You for your Message!";
     const successMessage = await this.contactUsPage.getSuccessfulMessage();
-    expect(successMessage).toContain("Thank You for your Message!");
+    expect(successMessage).toContain(expectedMessage);
   }
 );
 
@@ -48,28 +57,6 @@ Then(
   }
 );
 
-//Cucumber step definition with parameters for specific first name and last name
-
-When(
-  "I type a specific first name {string}",
-  async function (this: CucumberWorld, firstName: string) {
-    await this.contactUsPage.fillFirstName(firstName);
-  }
-);
-
-When(
-  "I type a specific last name {string}",
-  async function (this: CucumberWorld, lastName: string) {
-    await this.contactUsPage.fillLastName(lastName);
-  }
-);
-
-When(
-  "I enter a specific email address {string}",
-  async function (this: CucumberWorld, email: string) {
-    await this.contactUsPage.fillEmailAddress(email);
-  }
-);
 
 When(
   "I type specific comment {string} and a number {int} within the comment iput field",
@@ -78,25 +65,7 @@ When(
   }
 );
 
-//Random data generation using faker library
-
-When("I type a random first name", async function (this: CucumberWorld) {
-  const randomFirstName = faker.person.firstName();
-  await this.contactUsPage.fillFirstName(randomFirstName);
-});
-
-When("I type a random last name", async function (this: CucumberWorld) {
-  const randomLastName = faker.person.lastName();
-  await this.contactUsPage.fillLastName(randomLastName);
-});
-
-When("I enter a random email address", async function (this: CucumberWorld) {
-  const randomEmail = faker.internet.email();
-  await this.contactUsPage.fillEmailAddress(randomEmail);
-});
-
 //Scenario outline with examples
-
 When(
   "I type a first name {string} and a last name {string}",
   async function (this: CucumberWorld, firstName: string, lastName: string) {
@@ -115,7 +84,7 @@ When(
 
 Then(
   "I should be presented with header text {string}",
-  async function (this: CucumberWorld, expectedErrors) {
+  async function (this: CucumberWorld, expectedErrors: string) {
     await this.contactUsPage.getHeaderText(expectedErrors);
   }
 );
