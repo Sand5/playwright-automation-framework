@@ -1,8 +1,27 @@
+# ==============================
+# Playwright Environment Files
+# ==============================
+/env/localsecrets.env
 
-# Playwright
-node_modules/
+# ==============================
+# Node Modules
+# ==============================
+/node_modules/
+
+# ==============================
+# Test Results
+# ==============================
 /test-results/
+/reports/
+
+# ==============================
+# Playwright Reports
+# ==============================
 /playwright-report/
 /blob-report/
+
+# ==============================
+# Playwright Cache & Auth
+# ==============================
 /playwright/.cache/
 /playwright/.auth/

@@ -62,6 +62,16 @@ npx cucumber-js src/features/*.feature \
 Run a specific feature using a custom script with a tag:
 UI_AUTOMATION_BROWSER=chromium HEADLESS=false TEST_ENV=qa npm run cucumber login
 
+Use TEST_CRED from terminal
+UI_AUTOMATION_BROWSER=chromium HEADLESS=false TEST_ENV=qa TEST_CRED='{"username":"webdriver","password":"12345"}' npm run cucumber login
+
+Or leave TEST_CRED blank → fallback to localsecrets.env
+UI_AUTOMATION_BROWSER=chromium HEADLESS=false TEST_ENV=qa TEST_CRED= npm run cucumber login
+
+Or skip TEST_CRED entirely → also fallback to localsecrets.env
+UI_AUTOMATION_BROWSER=chromium HEADLESS=false TEST_ENV=qa npm run cucumber login
+
+
 Run tests for specific tags via index.ts:
 ts-node ./src/index.ts smoke
 This executes all scenarios marked with the @smoke tag.

@@ -51,17 +51,24 @@ export class BasePage {
   }
 
   public async switchToNewTab(): Promise<void> {
-    const newPagePromise = this.page.context().waitForEvent("page");
+    // Get the browser context from the current page
+    const context = this.page.context();
 
-    // The click that opens the new tab should happen outside
-    const newPage = await newPagePromise;
+    // Track existing pages and wait for a new one
+    const existingPages = new Set(context.pages());
+    const newPage = await context.waitForEvent("page", {
+      timeout: 10000,
+      predicate: (p) => !existingPages.has(p),
+    });
 
-    await newPage.bringToFront();
+    // Wait for it to load and set viewport
+    await newPage.waitForLoadState("domcontentloaded");
     await newPage.setViewportSize({
       width: config.browserWidth,
       height: config.browserHeight,
     });
 
-    this.pageManager.page = newPage; // update the central page
+    // Update page manager to point to this new tab
+    this.pageManager.page = newPage;
   }
 }
