@@ -1,8 +1,8 @@
-import { Page } from "@playwright/test";
-import { BasePage } from "./base.page";
-import { HomePage } from "../home.page";
-import { ContactUsPage } from "../contact-us.page";
-import { LoginPage } from "../login.page";
+import type { Page } from '@playwright/test';
+import { BasePage } from './base.page';
+import { HomePage } from '../home.page';
+import { ContactUsPage } from '../contact-us.page';
+import { LoginPage } from '../login.page';
 
 export class PageManager {
   private currentPage: Page;

@@ -1,19 +1,15 @@
-import { Locator } from "@playwright/test";
-import { PageManager } from "./page-manager";
-import logger from "../../logger/logger";
+import type { Locator } from '@playwright/test';
+import type { PageManager } from './page-manager';
+import logger from '../../logger/logger';
 
 // Load environment variables from the .env file
-import { config as loadEnv } from "dotenv";
-const env = loadEnv({ path: "./env/.env" });
+import { config as loadEnv } from 'dotenv';
+const env = loadEnv({ path: './env/.env' });
 
 //Create a config object to hold env variables
 export const config = {
-  browserWidth: parseInt(
-    process.env.BROWSER_WIDTH || env.parsed?.BROWSER_WIDTH || "1920"
-  ),
-  browserHeight: parseInt(
-    process.env.BROWSER_HEIGHT || env.parsed?.BROWSER_HEIGHT || "1080"
-  ),
+  browserWidth: parseInt(process.env.BROWSER_WIDTH || env.parsed?.BROWSER_WIDTH || '1920'),
+  browserHeight: parseInt(process.env.BROWSER_HEIGHT || env.parsed?.BROWSER_HEIGHT || '1080'),
 };
 
 export class BasePage {
@@ -29,7 +25,7 @@ export class BasePage {
 
   public async waitAndClickByRole(role: string, name: string): Promise<void> {
     const element = this.page.getByRole(role as any, { name: name });
-    await element.waitFor({ state: "visible" });
+    await element.waitFor({ state: 'visible' });
     await element.click();
   }
 
@@ -43,10 +39,7 @@ export class BasePage {
     await this.page.click(selector);
   }
 
-  public async typeTextByPlaceholder(
-    fieldldPlaceholder: string,
-    username: string
-  ): Promise<void> {
+  public async typeTextByPlaceholder(fieldldPlaceholder: string, username: string): Promise<void> {
     await this.page.getByPlaceholder(fieldldPlaceholder).fill(username);
   }
 
@@ -56,13 +49,13 @@ export class BasePage {
 
     // Track existing pages and wait for a new one
     const existingPages = new Set(context.pages());
-    const newPage = await context.waitForEvent("page", {
+    const newPage = await context.waitForEvent('page', {
       timeout: 10000,
       predicate: (p) => !existingPages.has(p),
     });
 
     // Wait for it to load and set viewport
-    await newPage.waitForLoadState("domcontentloaded");
+    await newPage.waitForLoadState('domcontentloaded');
     await newPage.setViewportSize({
       width: config.browserWidth,
       height: config.browserHeight,

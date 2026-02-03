@@ -295,6 +295,7 @@ The configuration aligns with Cucumber Full Support formatting:
 ├── .dockerignore                       # Files/folders ignored during Docker build
 ├── .gherkin-lintrc                     # Gherkin linter configuration
 ├── .gitignore                          # Git ignore file
+├── .prettierrc                          # Prettier configuration
 ├── Dockerfile                          # Docker setup for Playwright framework
 ├── README.md                           # Project documentation
 ├── docker-compose.yml                  # Docker Compose configuration
@@ -303,7 +304,6 @@ The configuration aligns with Cucumber Full Support formatting:
 ├── package.json                         # NPM scripts & dependencies
 ├── playwright.config.ts                 # Playwright configuration
 └── tsconfig.json                        # TypeScript configuration
-
 
 
 Feature Execution Flow 

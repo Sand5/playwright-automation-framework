@@ -1,6 +1,6 @@
-import { BasePage } from "./base/base.page";
-import { PageManager } from "./base/page-manager";
-import logger from "../logger/logger";
+import { BasePage } from './base/base.page';
+import type { PageManager } from './base/page-manager';
+import logger from '../logger/logger';
 
 let alertMessage: string;
 export class LoginPage extends BasePage {
@@ -9,24 +9,24 @@ export class LoginPage extends BasePage {
   }
 
   public async enterUsername(username: string): Promise<void> {
-    await this.typeTextByPlaceholder("Username", username);
+    await this.typeTextByPlaceholder('Username', username);
     logger.info(`Entered Username as: ${username}`);
   }
 
   public async enterPassword(password: string): Promise<void> {
-    await this.typeTextByPlaceholder("Password", password);
+    await this.typeTextByPlaceholder('Password', password);
     logger.info(`Entered Password as: ${password}`);
   }
 
   public async clickOnLoginButton(): Promise<void> {
-    const loginButton = this.page.locator("#login-button");
+    const loginButton = this.page.locator('#login-button');
     await loginButton.hover();
     await loginButton.click({ force: true });
-    logger.info("Clicked on the login button");
+    logger.info('Clicked on the login button');
   }
 
   public async clickLoginButtonAcceptDialogMessage(): Promise<void> {
-    this.page.on("dialog", async (dialog) => {
+    this.page.on('dialog', async (dialog) => {
       alertMessage = dialog.message();
       logger.info(`Alert message: ${alertMessage}`);
       await dialog.accept();

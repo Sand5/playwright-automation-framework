@@ -1,8 +1,8 @@
 import { exec } from 'child_process';
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 import os from 'os';
 
-dotenv.config({ path: "./env/.env" });
+dotenv.config({ path: './env/.env' });
 
 //Setting retry value from env variables or default to '0' OR '1'
 const parallelValue = process.env.PARALLEL_TESTS || '2';
@@ -17,7 +17,6 @@ export const testCommand = `./src/features/*.feature \
 --parallel ${parallelValue} \
 --retry ${retryValue} \
 --tags "not @ignore"`;
-
 
 //Define an infterface for the profiles
 //It defines an interface where each key is a string and the value is also a string
@@ -47,7 +46,7 @@ if (!profiles[profile as keyof typeof profiles]) {
 
 //Construct the command string based on the profile selected
 //Command is the full command to run the tests fore the selected profile
-//let command = `npx cucumber-js ${profiles[profile as 'smoke'|'regression'|'login'|'contact-us']}`; 
+//let command = `npx cucumber-js ${profiles[profile as 'smoke'|'regression'|'login'|'contact-us']}`;
 const command = `npx cucumber-js ${profiles[profile as keyof typeof profiles]}`;
 console.log(`Running tests with command: ${command}\n`);
 
@@ -64,12 +63,12 @@ exec(command, (error, stdout, stderr) => {
     scenarioTimestamp: true,
     launchReport: true,
     metadata: {
-      "App Version":"0.3.2",
-      "Test Environment": process.env.TEST_ENV || 'dev',
-      "Browser": "Chromium",
-      "Platform": `${os.type()} ${os.release()} (${os.arch()})`,
-      "Parallel": "Scenarios",
-      "Executed": "Remote"
+      'App Version': '0.3.2',
+      'Test Environment': process.env.TEST_ENV || 'dev',
+      Browser: 'Chromium',
+      Platform: `${os.type()} ${os.release()} (${os.arch()})`,
+      Parallel: 'Scenarios',
+      Executed: 'Remote',
     },
     failedSummaryReport: true,
   });
@@ -78,4 +77,3 @@ exec(command, (error, stdout, stderr) => {
     process.exit(error.code ?? 1); // Keep exit code for CI/CD
   }
 });
-

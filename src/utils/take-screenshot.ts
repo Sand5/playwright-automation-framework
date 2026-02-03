@@ -1,17 +1,17 @@
-import { Page } from "@playwright/test";
+import type { Page } from '@playwright/test';
 
 // Capture a screenshot and save it with a timestamped filename
 export async function takeScreenshot(
   page: Page,
-  scenarioName: string
+  scenarioName: string,
 ): Promise<{ image: Buffer; path: string }> {
   // Create UK-formatted timestamp in London time
   const timeStamp = new Date()
-    .toLocaleString("en-GB", { timeZone: "Europe/London", hour12: false })
-    .replace(/[: ]/g, "-");
+    .toLocaleString('en-GB', { timeZone: 'Europe/London', hour12: false })
+    .replace(/[: ]/g, '-');
 
   // Sanitize the scenario name for filesystem safety
-  const safeName = scenarioName.replace(/[^a-z0-9\-]/gi, "_");
+  const safeName = scenarioName.replace(/[^a-z0-9\-]/gi, '_');
 
   // Build the final screenshot path
   const path = `./reports/screenshots/${safeName}-${timeStamp}.png`;
@@ -19,7 +19,7 @@ export async function takeScreenshot(
   // Take the full-page PNG screenshot
   const image = await page.screenshot({
     path,
-    type: "png",
+    type: 'png',
     fullPage: true,
   });
 

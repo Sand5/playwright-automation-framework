@@ -1,15 +1,12 @@
-import {
-  World,
-  setWorldConstructor,
-  IWorldOptions,
-} from "@cucumber/cucumber";
-import { PageManager } from "../../page-objects/base/page-manager";
-import { BasePage } from "../../page-objects/base/base.page";
-import { HomePage } from "../../page-objects/home.page";
-import { ContactUsPage } from "../../page-objects/contact-us.page";
-import { LoginPage } from "../../page-objects/login.page";
-import logger from "../../logger/logger";
-import { pageFixture } from "../hooks/browser-context.fixture";
+import type { IWorldOptions } from '@cucumber/cucumber';
+import { World, setWorldConstructor } from '@cucumber/cucumber';
+import { PageManager } from '../../page-objects/base/page-manager';
+import type { BasePage } from '../../page-objects/base/base.page';
+import type { HomePage } from '../../page-objects/home.page';
+import type { ContactUsPage } from '../../page-objects/contact-us.page';
+import type { LoginPage } from '../../page-objects/login.page';
+import logger from '../../logger/logger';
+import { pageFixture } from '../hooks/browser-context.fixture';
 
 interface IUser {
   firstName?: string;
@@ -31,14 +28,14 @@ export class CucumberWorld extends World {
   // ----------------- Constructor -----------------
   constructor(options: IWorldOptions) {
     super(options);
-    logger.info("Cucumber World initialized for a new scenario.");
+    logger.info('Cucumber World initialized for a new scenario.');
   }
 
   // ----------------- PageManager / Pages -----------------
   get pageManager(): PageManager {
     if (!this._pageManager) {
       if (!pageFixture.page) {
-        throw new Error("pageFixture.page is not initialized yet!");
+        throw new Error('pageFixture.page is not initialized yet!');
       }
       this._pageManager = new PageManager(pageFixture.page);
     }
@@ -56,8 +53,7 @@ export class CucumberWorld extends World {
   }
 
   get contactUsPage(): ContactUsPage {
-    if (!this._contactUsPage)
-      this._contactUsPage = this.pageManager.createContactUsPage(); // lazy-load ContactUsPage
+    if (!this._contactUsPage) this._contactUsPage = this.pageManager.createContactUsPage(); // lazy-load ContactUsPage
     return this._contactUsPage;
   }
 
@@ -85,16 +81,12 @@ export class CucumberWorld extends World {
   }
 
   // ----------------- New helper for dynamic user data -----------------
-  async setUserData(data: {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-  }) {
+  async setUserData(data: { firstName?: string; lastName?: string; email?: string }) {
     // Destructure for logging convenience
     const { firstName, lastName, email } = data;
 
     // Build a log message dynamically
-    let logMessage = "Setting user info:";
+    let logMessage = 'Setting user info:';
     if (firstName) logMessage += ` First Name: ${firstName}`;
     if (lastName) logMessage += ` Last Name: ${lastName}`;
     if (email) logMessage += ` Email: ${email}`;

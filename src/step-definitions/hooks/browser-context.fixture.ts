@@ -1,4 +1,4 @@
-import { Browser, BrowserContext, Page } from "@playwright/test";
+import type { Browser, BrowserContext, Page } from '@playwright/test';
 
 export const pageFixture = {
   //@ts-ignore
