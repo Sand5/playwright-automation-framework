@@ -2,6 +2,8 @@
 # Playwright Environment Files
 # ==============================
 /env/localsecrets.env
+.DS_Store
+
 
 # ==============================
 # Node Modules

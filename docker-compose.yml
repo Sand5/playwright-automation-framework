@@ -1,0 +1,23 @@
+
+services:
+  playwright:
+    # Build the image from your Dockerfile in the current directory
+    build: .
+    container_name: playwright-tests
+    # Environment variables (can be overridden with .env file)
+    environment:
+      HEADLESS: "true"
+      UI_AUTOMATION_BROWSER: "chromium"
+      TEST_ENV: "qa"
+    # Optional: Mount your code to see changes without rebuilding
+    volumes:
+      - .:/app:cached
+      - /app/node_modules
+    # Optional: Pass a custom env file
+    env_file:
+      - env/localsecrets.env
+    # Default command (overrides CMD in Dockerfile if specified here)
+    command: ["npm", "run", "cucumber"]
+    # For GUI browsers (if needed)
+    stdin_open: true
+    tty: true
