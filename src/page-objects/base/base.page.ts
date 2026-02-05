@@ -1,5 +1,6 @@
 import type { Locator } from '@playwright/test';
 import type { PageManager } from './page-manager';
+import { Page } from '@playwright/test';
 import logger from '../../logger/logger';
 
 // Load environment variables from the .env file
@@ -44,24 +45,31 @@ export class BasePage {
   }
 
   public async switchToNewTab(): Promise<void> {
-    // Get the browser context from the current page
-    const context = this.page.context();
+    const context = this.pageManager.page.context(); // Get the current browser context
+    const pages = context.pages(); // All pages/tabs in the context
 
-    // Track existing pages and wait for a new one
-    const existingPages = new Set(context.pages());
-    const newPage = await context.waitForEvent('page', {
-      timeout: 10000,
-      predicate: (p) => !existingPages.has(p),
-    });
+    let newPage: Page;
 
-    // Wait for it to load and set viewport
-    await newPage.waitForLoadState('domcontentloaded');
-    await newPage.setViewportSize({
-      width: config.browserWidth,
-      height: config.browserHeight,
-    });
+    if (pages.length > 1) {
+      // A new tab already exists
+      newPage = pages[pages.length - 1]; // Last page is usually the new tab
+      await newPage.bringToFront();
+      await newPage.waitForLoadState();
+      logger.info('Switched to already-opened new tab');
+    } else {
+      // Wait briefly for a new tab to open (if it’s slow)
+      try {
+        newPage = await context.waitForEvent('page', { timeout: 5000 });
+        await newPage.waitForLoadState();
+        logger.info('Switched to newly opened tab after wait');
+      } catch (err) {
+        // Fallback: stay on current page (modal / same tab)
+        newPage = this.pageManager.page;
+        logger.warn('No new tab detected, continuing on current page');
+      }
+    }
 
-    // Update page manager to point to this new tab
+    // Update the page reference in your PageManager
     this.pageManager.page = newPage;
   }
 }
