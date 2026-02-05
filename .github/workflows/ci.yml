@@ -1,13 +1,10 @@
 name: Playwright + Cucumber E2E Tests
 
-# Trigger CI on push and pull requests to main
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   test:
@@ -15,61 +12,44 @@ jobs:
 
     strategy:
       matrix:
-        browser: [chromium, firefox, webkit]   # Run tests in all major browsers
+        browser: [chromium, firefox, webkit]
 
     steps:
-      # 1. Checkout repository
+      # 1️⃣ Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: 'npm'
+      # 2️⃣ Build Docker image (uses your existing Dockerfile)
+      - name: Build Playwright test image
+        run: docker build -t playwright-framework .
 
-      # 3. Install dependencies
-      - name: Install dependencies
-        run: npm ci
-
-      # 4. Install Playwright browsers & OS dependencies
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      # 5. Run linter
-      - name: Run Linter
-        run: npm run lint
-
-      # 6. Run Login Tests
+      # 3️⃣ Run Login Tests in Docker
       - name: Run Login Tests
-        env:
-          UI_AUTOMATION_BROWSER: ${{ matrix.browser }}
-          HEADLESS: true
-          TEST_ENV: qa
-          TEST_CRED: >
-            {
-              "username": "${{ secrets.TEST_USERNAME }}",
-              "password": "${{ secrets.TEST_PASSWORD }}"
-            }
-        run: npm run cucumber login
-        continue-on-error: true
+        run: |
+          docker run --rm \
+            -e UI_AUTOMATION_BROWSER=${{ matrix.browser }} \
+            -e HEADLESS=true \
+            -e TEST_ENV=qa \
+            -e TEST_USERNAME=${{ secrets.TEST_USERNAME }} \
+            -e TEST_PASSWORD=${{ secrets.TEST_PASSWORD }} \
+            -v ${{ github.workspace }}/reports:/app/reports \
+            playwright-framework npm run cucumber login
+        continue-on-error: false
 
-      # 7. Run Contact Us Tests
+      # 4️⃣ Run Contact Us Tests in Docker
       - name: Run Contact Us Tests
-        env:
-          UI_AUTOMATION_BROWSER: ${{ matrix.browser }}
-          HEADLESS: true
-          TEST_ENV: qa
-          TEST_CRED: >
-            {
-              "username": "${{ secrets.TEST_USERNAME }}",
-              "password": "${{ secrets.TEST_PASSWORD }}"
-            }
-        run: npm run cucumber contactUs
-        continue-on-error: true
+        run: |
+          docker run --rm \
+            -e UI_AUTOMATION_BROWSER=${{ matrix.browser }} \
+            -e HEADLESS=true \
+            -e TEST_ENV=qa \
+            -e TEST_USERNAME=${{ secrets.TEST_USERNAME }} \
+            -e TEST_PASSWORD=${{ secrets.TEST_PASSWORD }} \
+            -v ${{ github.workspace }}/reports:/app/reports \
+            playwright-framework npm run cucumber contactUs
+        continue-on-error: false
 
-      # 8. Upload HTML Report
+      # 5️⃣ Upload HTML Report
       - name: Upload HTML Report
         if: always()
         uses: actions/upload-artifact@v4
@@ -77,7 +57,7 @@ jobs:
           name: cucumber-html-report-${{ matrix.browser }}
           path: reports/cucumber_report.html
 
-      # 9. Upload JSON Report
+      # 6️⃣ Upload JSON Report
       - name: Upload JSON Report
         if: always()
         uses: actions/upload-artifact@v4
@@ -85,7 +65,7 @@ jobs:
           name: cucumber-json-report-${{ matrix.browser }}
           path: reports/cucumber_report.json
 
-      # 10. Upload Screenshots
+      # 7️⃣ Upload Screenshots
       - name: Upload Screenshots
         if: always()
         uses: actions/upload-artifact@v4
