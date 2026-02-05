@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "cucumberWithTS": "cucumber-js src/features/*.feature --require-module ts-node/register --require src/step-definitions/**/**/*.ts --require src/utils/cucumber-timeout.ts",
-    "precucumber": "rimraf reports && mkdir reports",
+    "precucumber": "mkdir -p reports && rimraf reports/* || true",
     "cucumber": "ts-node ./src/index.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
