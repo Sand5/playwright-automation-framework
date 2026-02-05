@@ -30,8 +30,8 @@ jobs:
             -e UI_AUTOMATION_BROWSER=${{ matrix.browser }} \
             -e HEADLESS=true \
             -e TEST_ENV=qa \
-            -e TEST_USERNAME=${{ secrets.TEST_USERNAME }} \
-            -e TEST_PASSWORD=${{ secrets.TEST_PASSWORD }} \
+            -e CI_TEST_USERNAME=${{ secrets.TEST_USERNAME }} \
+            -e CI_TEST_PASSWORD=${{ secrets.TEST_PASSWORD }} \
             -v ${{ github.workspace }}/reports:/app/reports \
             playwright-framework npm run cucumber login
         continue-on-error: false
@@ -43,8 +43,8 @@ jobs:
             -e UI_AUTOMATION_BROWSER=${{ matrix.browser }} \
             -e HEADLESS=true \
             -e TEST_ENV=qa \
-            -e TEST_USERNAME=${{ secrets.TEST_USERNAME }} \
-            -e TEST_PASSWORD=${{ secrets.TEST_PASSWORD }} \
+            -e CI_TEST_USERNAME=${{ secrets.TEST_USERNAME }} \
+            -e CI_TEST_PASSWORD=${{ secrets.TEST_PASSWORD }} \
             -v ${{ github.workspace }}/reports:/app/reports \
             playwright-framework npm run cucumber contactUs
         continue-on-error: false

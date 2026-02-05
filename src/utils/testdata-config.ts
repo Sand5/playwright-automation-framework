@@ -14,7 +14,7 @@ const testCred = testCredRaw ? JSON.parse(testCredRaw) : {};
 
 // Fallback helper
 export const USERNAME =
-  testCred.username || process.env.USERNAME || envConfig.parsed?.USERNAME || 'defaultUser';
+  testCred.username || process.env.CI_TEST_USERNAME || process.env.TEST_USERNAME || envConfig.parsed?.LOCAL_TEST_USERNAME;
 
 export const PASSWORD =
-  testCred.password || process.env.PASSWORD || envConfig.parsed?.PASSWORD || 'defaultPassword';
+  testCred.password || process.env.CI_TEST_PASSWORD || process.env.TEST_PASSWORD ||envConfig.parsed?.LOCAL_TEST_PASSWORD;
