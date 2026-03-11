@@ -87,7 +87,7 @@ Before(async function ({ pickle }) {
     await initializeScenario();
     console.log(`\n[Before Hook] Scenario: "${pickle.name}"`);
   } catch (error) {
-    console.error(`❌ Error setting up scenario: ${error}`);
+    console.error(`Error setting up scenario: ${error}`);
     throw error;
   }
 });
@@ -101,9 +101,9 @@ After(async function ({ pickle, result }) {
     try {
       const { image, path } = await takeScreenshot(pageFixture.page, pickle.name);
       this.attach(image, 'image/png');
-      console.log(`✅ Screenshot saved to: ${path}`);
+      console.log(`Screenshot saved to: ${path}`);
     } catch (err) {
-      console.error(`❌ Error taking screenshot: ${err}`);
+      console.error(`Error taking screenshot: ${err}`);
     }
   }
 
@@ -116,7 +116,7 @@ After(async function ({ pickle, result }) {
       await pageFixture.context.close();
     }
   } catch (cleanupErr) {
-    console.warn(`⚠️ Error during page/context cleanup: ${cleanupErr}`);
+    console.warn(`Error during page/context cleanup: ${cleanupErr}`);
   } finally {
     // 3️⃣ Reset fixtures
     (pageFixture as any).page = null;
