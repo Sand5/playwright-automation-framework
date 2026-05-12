@@ -17,13 +17,10 @@ A robust, maintainable, and scalable UI automation framework built with Playwrig
 
 Designed to simplify modern end-to-end testing, the framework supports:
 
-BDD-style functional testing
-
-Reusable step definitions
-
-Page Object Model architecture
-
-Flexible multi-environment configuration
+- BDD-style functional testing
+- Reusable step definitions
+- Page Object Model architecture
+- Flexible multi-environment configuration
 
 Integrated accessibility (A11y) testing using axe-core
 
