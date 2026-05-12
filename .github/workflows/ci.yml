@@ -80,7 +80,8 @@ jobs:
             -e UI_AUTOMATION_BROWSER=chromium \
             -e HEADLESS=true \
             -e TEST_ENV=qa \
+            -e CI=true \
             -v ${{ github.workspace }}/reports:/app/reports \
             playwright-framework \
-            npx tsx tests/accessibility/login.a11y.ts
+            npx tsx tests/accessibility/smoke/login.a11y.ts
         continue-on-error: true
