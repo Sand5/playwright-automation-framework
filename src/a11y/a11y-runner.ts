@@ -54,7 +54,7 @@ export async function runA11yTest(test: A11yPageTest) {
       if (violations.length > 0) {
         console.warn(`A11Y warnings (LOCAL): ${test.name}`);
         console.log(JSON.stringify(violations, null, 2));
-        
+
         process.exitCode = 1; // Set exit code to indicate failure, but do not exit immediately to allow report generation
         // FAIL LOCAL RUN
         if (process.exitCode === 1) {
