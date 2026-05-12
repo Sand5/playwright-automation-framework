@@ -4,25 +4,9 @@ import { chromium, firefox, webkit } from '@playwright/test';
 import { pageFixture } from './browser-context.fixture';
 import { setGlobalSettings } from '../../utils/playwright-timeouts';
 import { takeScreenshot } from '../../utils/take-screenshot';
+import { config } from '../../config/env'; 
 import type { CucumberWorld } from '../world/cucumber.world';
 
-// Load environment variables from the .env file
-import { config as loadEnv } from 'dotenv';
-
-// Determine environment from an env variable or default to 'dev'
-const ENV = process.env.TEST_ENV || 'qa';
-
-// Load the corresponding .env file
-const envConfig = loadEnv({ path: `./env/.env.${ENV}` });
-
-// Configuration
-export const config = {
-  browser:
-    process.env.UI_AUTOMATION_BROWSER || envConfig.parsed?.UI_AUTOMATION_BROWSER || 'chromium',
-  headless: process.env.HEADLESS === 'true' || envConfig.parsed?.HEADLESS === 'true',
-  browserWidth: parseInt(process.env.BROWSER_WIDTH || envConfig.parsed?.BROWSER_WIDTH || '1920'),
-  browserHeight: parseInt(process.env.BROWSER_HEIGHT || envConfig.parsed?.BROWSER_HEIGHT || '1080'),
-};
 
 // Browser mapping
 const browsers: { [key: string]: BrowserType } = {

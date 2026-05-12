@@ -37,4 +37,10 @@ export class LoginPage extends BasePage {
   public async getAlertMessage(): Promise<string> {
     return alertMessage;
   }
+
+   async openDirectly() {
+    await this.page.goto(
+      `${process.env.BASE_URL}/Login-Portal/index.html`
+    );
+  }
 }

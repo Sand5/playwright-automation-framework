@@ -31,7 +31,7 @@ export class PageManager {
     return new ContactUsPage(this);
   }
 
-  createLoginePage(): LoginPage {
+  createLoginPage(): LoginPage {
     return new LoginPage(this);
   }
 }

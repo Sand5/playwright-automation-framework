@@ -7,6 +7,9 @@
     "cucumberWithTS": "cucumber-js src/features/*.feature --require-module ts-node/register --require src/step-definitions/**/**/*.ts --require src/utils/cucumber-timeout.ts",
     "precucumber": "mkdir -p reports && rimraf reports/* || true",
     "cucumber": "ts-node ./src/index.ts",
+    "a11y": "tsx tests/accessibility/run-a11y.ts",
+    "a11y:smoke": "tsx tests/accessibility/smoke/*.a11y.ts",
+    "a11y:regression": "tsx tests/accessibility/regression/run-a11y.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "lint:gherkin": "gherkin-lint -c gerkin-lint.json 'src/features/*.feature'"
@@ -16,6 +19,7 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
     "@colors/colors": "^1.6.0",
     "@cucumber/cucumber": "^12.2.0",
     "@faker-js/faker": "^10.0.0",
@@ -23,6 +27,7 @@
     "@types/node": "^24.6.0",
     "@typescript-eslint/eslint-plugin": "^8.48.0",
     "@typescript-eslint/parser": "^8.48.0",
+    "axe-html-reporter": "^2.2.11",
     "cucumber-html-reporter": "^6.0.0",
     "dotenv": "^17.2.3",
     "eslint": "^9.39.1",
@@ -32,6 +37,7 @@
     "gherkin-lint": "^4.2.4",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "winston": "^3.18.3"
   }
 }

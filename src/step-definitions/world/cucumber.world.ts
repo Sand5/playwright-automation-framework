@@ -58,7 +58,7 @@ export class CucumberWorld extends World {
   }
 
   get loginPage(): LoginPage {
-    if (!this._loginPage) this._loginPage = this.pageManager.createLoginePage(); // lazy-load LoginPage
+    if (!this._loginPage) this._loginPage = this.pageManager.createLoginPage(); // lazy-load LoginPage
     return this._loginPage;
   }
 

@@ -1,7 +1,7 @@
 import { When, Then } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
 import type { CucumberWorld } from './world/cucumber.world';
-import { USERNAME, PASSWORD } from '../utils/testdata-config';
+import { USERNAME, PASSWORD } from '../config/credentials-config';
 
 When(
   /^I type a username\s*(.*)$/, // optional word
