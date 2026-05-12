@@ -1,14 +1,11 @@
 # Playwright Automation Framework
 
 [![CI](https://github.com/Sand5/playwright-automation-framework/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Sand5/playwright-automation-framework/actions/workflows/ci.yml)
-
 ![Node.js](https://img.shields.io/badge/node-20.x-brightgreen?logo=node.js)
 ![Playwright](https://img.shields.io/badge/tested%20with-playwright-45ba4b?logo=playwright)
-
 ![Last Commit](https://img.shields.io/github/last-commit/Sand5/playwright-automation-framework)
 ![Repo Size](https://img.shields.io/github/repo-size/Sand5/playwright-automation-framework)
 ![License](https://img.shields.io/github/license/Sand5/playwright-automation-framework)
-
 [![Docker Image](https://img.shields.io/badge/docker-ready-blue?logo=docker)](https://hub.docker.com/)
 ![A11Y](https://img.shields.io/badge/a11y-axe%20tested-blue)
 
